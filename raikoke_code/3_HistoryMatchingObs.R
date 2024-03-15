@@ -1,5 +1,5 @@
 # Load required packages, functions
-source("applications/raikoke/0_Source.R")
+source("raikoke_code/0_Source.R")
 
 # Define design for evaluating emulators with
 N <- 10^5
@@ -32,33 +32,33 @@ scale_output <- log(0.95)
 # Load in emulators
 # For the totals at T1, T3 and T5 these are available in data folder
 # For others, need to fit and store locally
-EmT1 <- load_ExUQmogp('applications/raikoke/data/EmT1/train')
-EmT3 <- load_ExUQmogp('applications/raikoke/data/EmT3/train')
-EmT5 <- load_ExUQmogp('applications/raikoke/data/EmT5/train')
+EmT1 <- load_ExUQmogp('data/EmT1/train')
+EmT3 <- load_ExUQmogp('data/EmT3/train')
+EmT5 <- load_ExUQmogp('data/EmT5/train')
 
-EmT1_MET <- LoadMulti('applications/raikoke/data/EmT1_MET', 'train')
-EmT3_MET <- LoadMulti('applications/raikoke/data/EmT3_MET', 'train')
-EmT5_MET <- LoadMulti('applications/raikoke/data/EmT5_MET', 'train')
+EmT1_MET <- LoadMulti('data/EmT1_MET', 'train')
+EmT3_MET <- LoadMulti('data/EmT3_MET', 'train')
+EmT5_MET <- LoadMulti('data/EmT5_MET', 'train')
 
 # Regions, overall
-EmRegion1 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region1')
-EmRegion2 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region2')
-EmRegion3 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region3')
-EmRegion4 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region4')
-EmRegion5 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region5')
-EmRegion6 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region6')
-EmRegion7 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region7')
-EmRegion8 <- load_ExUQmogp('applications/raikoke/data/EmRegion/region8')
+EmRegion1 <- load_ExUQmogp('data/EmRegion/region1')
+EmRegion2 <- load_ExUQmogp('data/EmRegion/region2')
+EmRegion3 <- load_ExUQmogp('data/EmRegion/region3')
+EmRegion4 <- load_ExUQmogp('data/EmRegion/region4')
+EmRegion5 <- load_ExUQmogp('data/EmRegion/region5')
+EmRegion6 <- load_ExUQmogp('data/EmRegion/region6')
+EmRegion7 <- load_ExUQmogp('data/EmRegion/region7')
+EmRegion8 <- load_ExUQmogp('data/EmRegion/region8')
 
 # By MET
-EmRegion1_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region1', 'region1')
-EmRegion2_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region2', 'region2')
-EmRegion3_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region3', 'region3')
-EmRegion4_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region4', 'region4')
-EmRegion5_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region5', 'region5')
-EmRegion6_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region6', 'region6')
-EmRegion7_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region7', 'region7')
-EmRegion8_MET <- LoadMulti('applications/raikoke/data/EmRegion_MET/region8', 'region8')
+EmRegion1_MET <- LoadMulti('data/EmRegion_MET/region1', 'region1')
+EmRegion2_MET <- LoadMulti('data/EmRegion_MET/region2', 'region2')
+EmRegion3_MET <- LoadMulti('data/EmRegion_MET/region3', 'region3')
+EmRegion4_MET <- LoadMulti('data/EmRegion_MET/region4', 'region4')
+EmRegion5_MET <- LoadMulti('data/EmRegion_MET/region5', 'region5')
+EmRegion6_MET <- LoadMulti('data/EmRegion_MET/region6', 'region6')
+EmRegion7_MET <- LoadMulti('data/EmRegion_MET/region7', 'region7')
+EmRegion8_MET <- LoadMulti('data/EmRegion_MET/region8', 'region8')
 
 # Predict at T1/T3/T5 using a) overall emulator and b) each of the 18 MET emulators
 # Each of these objects is relatively large (mean, variance at N points for 19 emulators), hence not stored in Github
@@ -136,7 +136,7 @@ for (j in 1:18){
   implR2_MET[,j] <- abs(scale_output + PredR2$met[[j]]$Mean - subset(obs, Type == 'S')$Mean) / sqrt(PredR2$met[[j]]$SD^2 + subset(obs, Type == 'S')$Var)
 }
 
-tData_regions <- readRDS("applications/raikoke/data/tData_regions.rds")
+tData_regions <- readRDS("data/tData_regions.rds")
 implR1Ens <- abs(scale_output + tData_regions[[1]]$LogTotal - subset(obs, Type == 'N')$Mean) / sqrt(subset(obs, Type == 'N')$Var)
 implR2Ens <- abs(scale_output + tData_regions[[2]]$LogTotal - subset(obs, Type == 'S')$Mean) / sqrt(subset(obs, Type == 'S')$Var)
 

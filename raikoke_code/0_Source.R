@@ -3,9 +3,7 @@ packages <- c('ggplot2','dplyr','cowplot','reticulate','pracma', 'invgamma', 'Ge
               'mco', 'mvtnorm', 'ncdf4', 'parallel', 'reshape2', 'shape', 'tensor', 'viridis', 'withr', 'loo','MASS')
 sapply(packages, require, character.only = TRUE, quietly = TRUE)
 
-source('code/mogp_save.R')
-source('code/mogp_new_wrappers.R')
-source('code/mogp_basis.R')
+source('uq_code/mogp_functions.R')
 
 # Emulation here done with mogp_emulator, found here: https://github.com/alan-turing-institute/mogp_emulator
 mogp_dir <- '/Users/jamessalter/mogp_emulator/' # location of mogp installation
@@ -24,7 +22,7 @@ source('BuildEmulator/BuildEmulator.R')
 setwd(uqdir)
 
 # Load design matrix
-design <- readRDS('applications/raikoke/data/design.rds')
+design <- readRDS('data/design.rds')
 
 # Defining parameter ranges
 minMER <- 50.7 * 10^7 * (9 - 0.551)^(1/0.241) * 0.33 * 0.5/100
@@ -47,7 +45,7 @@ ScaledDesign$MER <- NULL # for consistency; never use this variable in emulation
 # For history matching, require estimated obs (mean/median), observation error variance
 # $Mean gives mean (on log scale), $Var gives estimated variance (on log scale)
 # Just load this in
-obs <- readRDS('applications/raikoke/data/obs.rds')
+obs <- readRDS('data/obs.rds')
 
 #### Additional functions for this work specifically ####
 # Plot NAME output

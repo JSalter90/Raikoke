@@ -1,12 +1,12 @@
 # Load required packages, functions
-source("applications/raikoke/0_Source.R")
+source("raikoke_code/0_Source.R")
 
 # Create some plots
 # For validation plots, see 1_Emulation.R
-tDataT1 <- readRDS("applications/raikoke/data/tDataT1.rds")
-tDataT3 <- readRDS("applications/raikoke/data/tDataT3.rds")
-tDataT5 <- readRDS("applications/raikoke/data/tDataT5.rds")
-tData_regions <- readRDS("applications/raikoke/data/tData_regions.rds")
+tDataT1 <- readRDS("data/tDataT1.rds")
+tDataT3 <- readRDS("data/tDataT3.rds")
+tDataT5 <- readRDS("data/tDataT5.rds")
+tData_regions <- readRDS("data/tData_regions.rds")
 
 # Find 99% intervals
 obs$Lower <- obs$Mean - qnorm(0.995)*sqrt(obs$Var)
@@ -179,9 +179,9 @@ EmPost <- function(Preds, tData, obs, inds, s = 100){
 }
 
 # Load (or create) emulator predictions for the 1000 ensemble members
-EnsPredT1 <- readRDS("applications/raikoke/data/EnsPredT1.rds")
-EnsPredT3 <- readRDS("applications/raikoke/data/EnsPredT3.rds")
-EnsPredT5 <- readRDS("applications/raikoke/data/EnsPredT5.rds")
+EnsPredT1 <- readRDS("data/EnsPredT1.rds")
+EnsPredT3 <- readRDS("data/EnsPredT3.rds")
+EnsPredT5 <- readRDS("data/EnsPredT5.rds")
 
 PostT1 <- EmPost(EnsPredT1, tDataT1, subset(obs, Type == 'T1')$Mean, inds = 1:9, s = 1000)
 PostT1
